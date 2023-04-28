@@ -9,8 +9,6 @@ import MyAccountView from './views/Account/AccountChildren/MyAccountView.vue'
 import ShoppingView from './views/ShoppingView.vue'
 import FavoritesView from './views/Account/AccountChildren/FavoritesView.vue'
 import HelpView from './views/Account/AccountChildren/HelpView.vue'
-import Reviews from './views/Review/Reviews.vue'
-
 import AllProductsView from './views/AllProductsView.vue'
 import IndividualProductView from './views/IndividualProductView.vue'
 import AboutView from './views/AboutView.vue'
@@ -27,130 +25,129 @@ import SignUp from './components/MyAccount/SignUp.vue'
 import SearchComponent from './components/SearchComponents/SearchComponent.vue'
 
 export default createRouter({
-    history: createWebHashHistory(),
-    //to, from, savedPosition parameters
-    scrollBehavior() {
-        // always scroll to top
-        return { top: 1 }
+  history: createWebHashHistory(),
+  //to, from, savedPosition parameters
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 1 }
+  },
+  routes: [
+    {
+      component: HomeView,
+      path: '/'
     },
-    routes: [{
-            component: HomeView,
-            path: '/'
-        },
 
+    {
+      component: AllProductsView,
+      path: '/shopping'
+    },
+    {
+      component: CartView,
+      path: '/cart'
+    },
+    {
+      path: '/kop',
+      component: PaymentView
+    },
+    {
+      path: '/submit',
+      component: SubmitView
+    },
+    {
+      component: AccountView,
+      path: '/account',
+      redirect: '/account/konto',
+      beforeEnter: () => {
+        const auth = localStorage.getItem('auth')
+        return auth === 'true' ? true : '/login'
+      },
+      children: [
         {
-            component: AllProductsView,
-            path: '/shopping'
+          path: 'favourites',
+          component: FavoritesView
         },
         {
-            component: CartView,
-            path: '/cart'
+          path: 'konto',
+          component: MyAccountView
         },
         {
-            path: '/kop',
-            component: PaymentView
-        },
-        {
-            path: '/submit',
-            component: SubmitView
-        },
-        {
-            component: AccountView,
-            path: '/account',
-            redirect: '/account/konto',
-            beforeEnter: () => {
-                const auth = localStorage.getItem('auth')
-                return auth === 'true' ? true : '/login'
-            },
-            children: [{
-                    path: 'favourites',
-                    component: FavoritesView
-                },
-                {
-                    path: 'konto',
-                    component: MyAccountView
-                },
-                {
-                    component: HelpView,
-                    path: 'help'
-                },
-                {
-                    path: 'review',
-                    component: Reviews
-                }
-            ]
-        },
-        {
-            //KZ new component
-            component: HelpView,
-            path: '/account/help',
-            children: [{
-                    path: 'materials',
-                    component: MaterialsComponent
-                },
-                {
-                    path: 'payment',
-                    component: PaymentComponent
-                },
-                {
-                    path: 'exchanges',
-                    component: ExchangesComponent
-                },
-                {
-                    path: 'delivery',
-                    component: DeliveryComponent
-                },
-                {
-                    path: 'qr',
-                    component: ShippingTrackingqr
-                }
-            ]
-        },
-        {
-            component: IndividualProductView,
-            path: '/description/:id?/:name?/:price?/:product?'
-        },
-
-        {
-            component: LogIn,
-            path: '/login'
-        },
-        {
-            component: SignUp,
-            path: '/signup'
-        },
-
-        {
-            component: SearchComponent,
-            path: '/searchcomponent'
-        },
-        // New paths that depending on which you choose sends a certain prop to the Shoppingview page.
-        {
-            path: '/jackets',
-            component: ShoppingView,
-            props: { category: 'jacket' }
-        },
-        {
-            path: '/dresses',
-            component: ShoppingView,
-            props: { category: 'dress' }
-        },
-        {
-            path: '/tops',
-            component: ShoppingView,
-            props: { category: 'tops' }
-        },
-        {
-            path: '/bottoms',
-            component: ShoppingView,
-            props: { category: 'bottoms' }
-        },
-        {
-            path: '/About',
-            component: AboutView,
-            props: { category: 'AboutView' }
+          component: HelpView,
+          path: 'help'
         }
-    ]
+      ]
+    },
+    {
+      //KZ new component
+      component: HelpView,
+      path: '/account/help',
+      children: [
+        {
+          path: 'materials',
+          component: MaterialsComponent
+        },
+        {
+          path: 'payment',
+          component: PaymentComponent
+        },
+        {
+          path: 'exchanges',
+          component: ExchangesComponent
+        },
+        {
+          path: 'delivery',
+          component: DeliveryComponent
+        },
+        {
+          path: 'qr',
+          component: ShippingTrackingqr
+        }
+      ]
+    },
+    {
+      component: IndividualProductView,
+      path: '/description/:id?/:name?/:price?/:product?'
+    },
+
+    {
+      component: LogIn,
+      path: '/login'
+    },
+    {
+      component: SignUp,
+      path: '/signup'
+    },
+
+    {
+      component: SearchComponent,
+      path: '/searchcomponent'
+    },
+    // New paths that depending on which you choose sends a certain prop to the Shoppingview page.
+    {
+      path: '/jackets',
+      component: ShoppingView,
+      props: { category: 'jacket' }
+    },
+    {
+      path: '/dresses',
+      component: ShoppingView,
+      props: { category: 'dress' }
+    },
+    {
+      path: '/tops',
+      component: ShoppingView,
+      props: { category: 'tops' }
+    },
+    {
+      path: '/bottoms',
+      component: ShoppingView,
+      props: { category: 'bottoms' }
+    },
+    {
+      path: '/About',
+      component: AboutView,
+      props: { category: 'AboutView' }
+    }
+  ]
 })
 
 /*

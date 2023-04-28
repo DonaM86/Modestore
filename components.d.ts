@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     BCarouselSlide: typeof import('bootstrap-vue-next')['BCarouselSlide']
     BFormInput: typeof import('bootstrap-vue-next')['BFormInput']
     BModal: typeof import('bootstrap-vue-next')['BModal']
+    BottomNavbar: typeof import('./src/components/Navigation/BottomNavbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
